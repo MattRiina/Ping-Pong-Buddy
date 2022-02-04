@@ -1,0 +1,17 @@
+Doing research on how to track a ping pong ball in motion using computer vision. Will be using python and OpenCV to accomplish this.
+
+Tutorials:
+https://www.pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/
+https://www.youtube.com/watch?v=MkcUgPhOlP8
+
+
+Research articles on algorithms: 
+https://towardsdatascience.com/ball-detection-with-computer-vision-ai-in-sports-f9ef743e0ef1
+https://www.hindawi.com/journals/jhe/2021/5529981/
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8137303/
+
+
+Other things to explore: 
+algorithms from computer vision class (talk to Professor Stewart for ideas)
+
+

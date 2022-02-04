@@ -14,4 +14,3 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8137303/
 Other things to explore: 
 algorithms from computer vision class (talk to Professor Stewart for ideas)
 
-

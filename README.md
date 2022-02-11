@@ -26,3 +26,5 @@ conda install --file conda-requirements.txt
 ```console
 pip install -r pip-requirements.txt
 ```
+## License
+This work is licensed under 2 licenses: MIT License and CERN-OHL-P Open Hardware License. The MIT License applies to all software components of the project, and a copy of this license can be found under the src directory. The CERN-OHL-P Open Hardware License applies to all hardware components and engineering design components of the project, which can be found in the engineering-design directory. 

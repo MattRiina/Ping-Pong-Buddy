@@ -1,0 +1,24 @@
+Here is a list of links to different automated ping pong launchers:
+
+1. https://www.youtube.com/watch?v=KXz2Zp_QgAo
+2. Newgy Eagle Eye Robo-Pong (2040+): https://www.pingpongdepot.com/newgy-robo-pong-2040-free-ship-ships-from-usa-to-usa/
+	Price ~ $900
+	Capabilites/Notes:
+		* Automated return system and feeder
+		* Analog dials to adjust different ball speeds, spins and frequencies (not automated)
+		* Manual player input and development
+3. ZXMT Ping Pong Robot Automatic Table Tennis Robot Machine Ping-Pong Home Practicing Training Exercise: https://www.amazon.com/PROMOTOR-Automatic-Ping-Pong-Practicing-Training/dp/B07CYS861S/ref=asc_df_B07CYS861S/?tag=hyprod-20&linkCode=df0&hvadid=309898174468&hvpos=&hvnetw=g&hvrand=180215408129909427&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1023427&hvtargid=pla-585084013424&th=1
+	Price ~ $210
+	Capabilites/Notes:
+		* Automated feeder (No return)
+		* Analog dials to adjust different ball speeds and frequency of launching (not automated)
+		* No data logging to training
+		* Manual player input development
+4. Amicus Prime Robot: https://shop.butterflyonline.com/amicus-prime-robot?CATARGETID=120089230000007015&CADevice=c&gclid=Cj0KCQiAr5iQBhCsARIsAPcwRONBEPybYUOAaA9yH4wFzIuO2QHQSD24MZw5SD6g-Jdb81GZdEKR-YwaAiinEALw_wcB
+	Price ~ $2100
+	Capabilities/Notes:
+		* Automated return system and feeder
+		* App to control speed, frequency, spin, etc.
+		* 21 Pre-Programmed drills
+		* Storing user data not found on App
+		* App has an ugly interface

@@ -22,3 +22,4 @@ Here is a list of links to different automated ping pong launchers:
 		* 21 Pre-Programmed drills
 		* Storing user data not found on App
 		* App has an ugly interface
+		* Comes with balls, means it probably can't use any ball

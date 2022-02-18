@@ -20,3 +20,8 @@ Spoke to Professor Stewart and he had some great insights on using computer visi
 1. He recommended the KLT (Kanade–Lucas–Tomasi) algorithm for tracking the ping pong ball in motion (mentioned a few other algorithms and said to stay away from those since they are too slow for our application)
 2. He recommended that we use orange ping pong balls for testing since he expects our apartment will not have nice, even lighting and it will help track the ball easier
 3. He said tracking the trajectory of the ball will be a bit tricky but he beleives in us
+
+
+UPDATE: This problem is going to require a lot of research, trial, and error:
+I am currently doing research here: https://learnopencv.com/object-tracking-using-opencv-cpp-python/ 
+

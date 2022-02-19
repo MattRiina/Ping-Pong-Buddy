@@ -8,6 +8,7 @@ import time
 if __name__ == "__main__":
     file = None
     feed = None
+    
     # parse argument for video file name (if specified)
     if len(sys.argv) > 1:
         file = sys.argv[1]
@@ -47,8 +48,9 @@ if __name__ == "__main__":
         frame1 = frame2
         ret, frame2 = feed.read()
 
-        # # read the current frame
-        # _, frame = feed.read()
+        # break when frames are exhausted
+        if frame2 is None:
+            break
 
         # Press q to quit
         if cv2.waitKey(1) & 0xFF == ord('q'):

@@ -1,9 +1,22 @@
 import cv2
-
+from imutils.video import VideoStream
+import numpy as np
+import imutils
+import sys
+import time
 
 if __name__ == "__main__":
-    # define a video capture object
-    feed = cv2.VideoCapture(0)
+    file = None
+    feed = None
+    # parse argument for video file name (if specified)
+    if len(sys.argv) > 1:
+        file = sys.argv[1]
+        feed = cv2.VideoCapture(file)
+    else:
+        feed = cv2.VideoCapture(0)
+
+    # allow the camera or video file to warm up
+    time.sleep(2.0)
 
     ret, frame1 = feed.read()
     ret, frame2 = feed.read()

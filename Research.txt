@@ -25,3 +25,5 @@ Spoke to Professor Stewart and he had some great insights on using computer visi
 UPDATE: This problem is going to require a lot of research, trial, and error:
 I am currently doing research here: https://learnopencv.com/object-tracking-using-opencv-cpp-python/ 
 
+UPDATE: Motion test videos loaded in and simple motion detection works well
+This tutorial is very helpful: https://pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/

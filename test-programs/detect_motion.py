@@ -4,15 +4,20 @@ import numpy as np
 import imutils
 import sys
 import time
+import imageio
 
 if __name__ == "__main__":
     file = None
     feed = None
+    file_name = None
     
     # parse argument for video file name (if specified)
     if len(sys.argv) > 1:
         file = sys.argv[1]
         feed = cv2.VideoCapture(file)
+        file_name = file.lower().split(".mov")[0]
+        file_name = file_name.split("/")[-1]
+        file_name = file_name.split("\\")[-1]
     else:
         feed = cv2.VideoCapture(0)
 
@@ -21,6 +26,8 @@ if __name__ == "__main__":
 
     ret, frame1 = feed.read()
     ret, frame2 = feed.read()
+
+    image_list = []
 
     while True:
         # get the difference between the frames
@@ -44,6 +51,9 @@ if __name__ == "__main__":
         # show the frame
         cv2.imshow("feed", frame1)
 
+        frame1_rgb = cv2.cvtColor(frame1, cv2.COLOR_BGR2RGB)
+        image_list.append(frame1_rgb)
+
         # get the next frame
         frame1 = frame2
         ret, frame2 = feed.read()
@@ -61,3 +71,8 @@ if __name__ == "__main__":
 
     # Close all windows
     cv2.destroyAllWindows()
+
+    if file_name is not None:
+        # Convert to gif using the imageio.mimsave method
+        imageio.mimsave("./demos/detect_motion/" + file_name + "_detect_motion.gif", image_list)
+    

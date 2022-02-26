@@ -16,6 +16,7 @@ if __name__ == "__main__":
         file = sys.argv[1]
         feed = cv2.VideoCapture(file)
         file_name = file.lower().split(".mov")[0]
+        file_name = file.lower().split(".mp4")[0]
         file_name = file_name.split("/")[-1]
         file_name = file_name.split("\\")[-1]
     else:
@@ -48,11 +49,16 @@ if __name__ == "__main__":
             cv2.rectangle(frame1, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.putText(frame1, "Movement Detected", (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
 
+            
+        
+            # save the frame to a file
+            image_list.append(frame1)
+
+
         # show the frame
         cv2.imshow("feed", frame1)
 
-        frame1_rgb = cv2.cvtColor(frame1, cv2.COLOR_BGR2RGB)
-        image_list.append(frame1_rgb)
+        
 
         # get the next frame
         frame1 = frame2
@@ -66,13 +72,15 @@ if __name__ == "__main__":
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
+    # write last item in image_list to an image file
+    cv2.imwrite("test" + "_detected2.jpg", image_list[-1])
+
+    
+
     # When everything done, release the capture
     feed.release()
 
     # Close all windows
     cv2.destroyAllWindows()
 
-    if file_name is not None:
-        # Convert to gif using the imageio.mimsave method
-        imageio.mimsave("./demos/detect_motion/" + file_name + "_detect_motion.gif", image_list)
     

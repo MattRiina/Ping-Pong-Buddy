@@ -34,31 +34,27 @@ if __name__ == "__main__":
     cv2.imshow("Gray", gray)
     cv2.waitKey(0)
 
-    num_labels, labels, stats, centroids = \
-        cv2.connectedComponentsWithStats(gray, 8, cv2.CV_32S)
-
-    colors = np.random.randint(0, 255, (num_labels, 3), dtype="uint8")
-    img_colored = colors[labels]
-
-    cv2.imshow("Connected components", img_colored)
-
     thresh = cv2.threshold(gray, 60, 255, cv2.THRESH_BINARY)[1]
     # show the image after applying the threshold
     cv2.imshow("Thresh", thresh)
     cv2.waitKey(0)
 
-    # find contours in the thresholded image
-    contours = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    
-    # loop over the contours
-    for c in contours[0]:
-        # compute the bounding box of the contour and then draw the
-        # bounding box on both input images to represent where the
-        # object is
-        (x, y, w, h) = cv2.boundingRect(c)
-        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        cv2.putText(image, "Movement Detected", (10, 20),
-            cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
+    kernel = np.ones((5,5),np.uint8)
+
+    after_open = cv2.morphologyEx(thresh,cv2.MORPH_OPEN,kernel)
+    im_open_first = cv2.morphologyEx(after_open,cv2.MORPH_CLOSE,kernel)
+
+    # show the image after applying the open and close
+    cv2.imshow("Open and Close", im_open_first)
+    cv2.waitKey(0)
+
+    # perform a series of erosions and dilations to remove any small blobs of noise from the thresholded image
+    thresh = cv2.erode(thresh, None, iterations=2)
+    thresh = cv2.dilate(thresh, None, iterations=4)
+
+    # show the image after applying the erosions and dilations
+    cv2.imshow("Eroded", thresh)
+    cv2.waitKey(0)  
 
     # show the output images
     cv2.imshow("Image", image)

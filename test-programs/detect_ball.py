@@ -24,7 +24,7 @@ if __name__ == "__main__":
     # look for orange ball based on HSV color space
     # orange is in range of [0, 20, 100] to [0, 130, 230] to [10, 255, 255] (in RGB space, not BGR or HSV)
     lower_orange = np.array([0, 20, 100])
-    upper_orange = np.array([0, 130, 230])
+    upper_orange = np.array([90, 135, 230])
 
     # convert to HSV color space
     # hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)

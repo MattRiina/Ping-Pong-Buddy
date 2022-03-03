@@ -29,6 +29,8 @@ if __name__ == "__main__":
 
     # create mask
     mask = cv2.inRange(hsv, lower_orange, upper_orange)
+    mask = cv2.erode(mask, None, iterations=2)
+    mask = cv2.dilate(mask, None, iterations=2)
 
     result = cv2.bitwise_and(hsv, hsv, mask=mask)
 

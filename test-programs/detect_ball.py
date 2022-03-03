@@ -23,14 +23,25 @@ if __name__ == "__main__":
 
     # look for orange ball based on HSV color space
     # orange is in range of [0, 20, 100] to [0, 130, 230] to [10, 255, 255] (in RGB space, not BGR or HSV)
-    lower_orange = np.array([0, 20, 100])
-    upper_orange = np.array([90, 135, 230])
+    # lower_orange = np.array([0, 20, 100]) #RGB
+    # upper_orange = np.array([90, 135, 230]) #RGB
+
+    lower_orange = np.array([0, 20, 180]) #HSV
+    upper_orange = np.array([90, 135, 230]) #HSV
 
     # convert to HSV color space
-    # hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    #hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
 
     # create mask
     mask = cv2.inRange(image, lower_orange, upper_orange)
+
+    result = cv2.bitwise_and(image, image, mask=mask)
+
+    # show the images
+    cv2.imshow("images", np.hstack([image, result]))
+    cv2.waitKey(0)
+
 
     # find contours in the mask
     contours = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]

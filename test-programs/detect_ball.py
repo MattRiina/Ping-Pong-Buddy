@@ -36,7 +36,6 @@ if __name__ == "__main__":
     cv2.imshow("images", np.hstack([hsv, result]))
     cv2.waitKey(0)
 
-
     # find contours in the mask
     contours = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
 
@@ -51,9 +50,10 @@ if __name__ == "__main__":
        
         # now filter based on area
         # look for a ball that has a radius of at least 10 pixels and a max of 35 pixels
-        if radius > 10 and radius < 35:
+        if radius > 10 and radius < 25:
             # draw the circle and centroid on the image
             cv2.circle(image, (int(x), int(y)), int(radius), (0, 255, 255), 2)
+            print("Ball found at ({}, {}) with radius {}".format(int(x), int(y), int(radius)))
 
 
     # show  the image

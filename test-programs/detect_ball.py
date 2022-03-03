@@ -27,7 +27,7 @@ if __name__ == "__main__":
     # upper_orange = np.array([90, 135, 230]) #RGB
 
     lower_orange = np.array([0, 20, 180]) #HSV
-    upper_orange = np.array([90, 135, 230]) #HSV
+    upper_orange = np.array([90, 135, 255]) #HSV
 
     # convert to HSV color space
     #hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)

@@ -45,18 +45,15 @@ if __name__ == "__main__":
         print("No contours found in the image")
         sys.exit()
     
-    # find the largest contour in the mask, then use
-    # it to compute the minimum enclosing circle and
-    # centroid
+    # go through each contour and find the contours that are around the size of the ball
     for c in contours:
-        #c = max(contours, key=cv2.contourArea)
         ((x, y), radius) = cv2.minEnclosingCircle(c)
-
-        # draw the circle and centroid on the image,
-        # then show the image
-        cv2.circle(image, (int(x), int(y)), int(radius), (0, 255, 255), 2)
-
+       
         # now filter based on area
+        # look for a ball that has a radius of at least 10 pixels and a max of 35 pixels
+        if radius > 10 and radius < 35:
+            # draw the circle and centroid on the image
+            cv2.circle(image, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 
 
     # show  the image

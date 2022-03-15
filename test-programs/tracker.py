@@ -39,6 +39,7 @@ if __name__ == "__main__":
     ret, frame2 = feed.read()
 
     image_list = []
+    ball_locations = []
 
     while True:
         # get the difference between the frames
@@ -48,7 +49,6 @@ if __name__ == "__main__":
         _, thresh = cv2.threshold(blur, 20, 255, cv2.THRESH_BINARY)
         dilated = cv2.dilate(thresh, None, iterations=3)
         contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
 
         blur_current = cv2.GaussianBlur(frame2, (5, 5), 0)
         hsv = cv2.cvtColor(blur_current, cv2.COLOR_BGR2HSV)
@@ -64,6 +64,17 @@ if __name__ == "__main__":
         cnts = imutils.grab_contours(cnts)
         center = None
 
+        orange_locations = {}
+
+        # loop through each orange contour found
+        for c in cnts:
+            ((x, y), radius) = cv2.minEnclosingCircle(c)
+            M = cv2.moments(c)
+            center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+
+            if radius > 10:
+                orange_locations[(int(x), int(y))] = [radius, center]
+
         for mot_c in contours:
             # only proceed if the contour is large enough
             if cv2.contourArea(mot_c) < 1000:
@@ -72,6 +83,10 @@ if __name__ == "__main__":
             # compute the center of the contour
             M = cv2.moments(mot_c)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+
+            # check to see if this center is near any of the orange locations
+            for (x, y), (radius, o_center) in orange_locations.items:
+                pass
 
             # draw the contour and center of the shape on the image
             cv2.drawContours(frame1, [mot_c], -1, (0, 255, 0), 2)
@@ -83,7 +98,6 @@ if __name__ == "__main__":
             # it to compute the minimum enclosing circle and
             # centroid
             for c in cnts:
-            #c = max(cnts, key=cv2.contourArea)
                 ((x, y), radius) = cv2.minEnclosingCircle(c)
                 M = cv2.moments(c)
                 center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))

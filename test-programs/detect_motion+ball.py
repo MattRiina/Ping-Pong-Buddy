@@ -4,7 +4,6 @@ import numpy as np
 import imutils
 import sys
 import time
-import imageio
 
 if __name__ == "__main__":
     file = None
@@ -51,7 +50,7 @@ if __name__ == "__main__":
         contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
 
-        blur_current = cv2.GaussianBlur(frame1, (5, 5), 0)
+        blur_current = cv2.GaussianBlur(frame2, (5, 5), 0)
         hsv = cv2.cvtColor(blur_current, cv2.COLOR_BGR2HSV)
 
         # find the orange ball
@@ -107,22 +106,6 @@ if __name__ == "__main__":
         if key == ord("q"):
             break
 
-        # # draw out each contour on frame
-        # for contour in contours:
-        #     (x, y, w, h) = cv2.boundingRect(contour)
-
-        #     if cv2.contourArea(contour) < 900:
-        #         continue
-
-        #     cv2.rectangle(frame1, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        #     cv2.putText(frame1, "Movement Detected", (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
-
-        # # show the frame
-        # cv2.imshow("feed", frame1)
-
-        # frame1_rgb = cv2.cvtColor(frame1, cv2.COLOR_BGR2RGB)
-        # image_list.append(frame1_rgb)
-
         # get the next frame
         frame1 = frame2
         ret, frame2 = feed.read()
@@ -140,8 +123,3 @@ if __name__ == "__main__":
 
     # Close all windows
     cv2.destroyAllWindows()
-
-    # if file_name is not None:
-    #     # Convert to gif using the imageio.mimsave method
-    #     imageio.mimsave("./demos/detect_motion/" + file_name + "_detect_motion.gif", image_list)
-    

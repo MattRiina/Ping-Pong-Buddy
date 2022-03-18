@@ -40,6 +40,7 @@ if __name__ == "__main__":
 
     image_list = []
     ball_locations = []
+    consecutive_frames_without_ball = 0
 
     while True:
         # get the difference between the frames
@@ -84,6 +85,8 @@ if __name__ == "__main__":
             M = cv2.moments(mot_c)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
+            locations_initial = len(orange_locations)
+
             # check to see if this center is near any of the orange locations
             for (x, y), (radius, o_center) in orange_locations.items():
                 # calculate the distance between the center of the contour and the orange location
@@ -95,13 +98,29 @@ if __name__ == "__main__":
                     cv2.circle(frame2, o_center, int(radius), (0, 255, 255), 2)
 
                     print("Orange found at: " + str(o_center) + " with radius: " + str(radius))
+                    consecutive_frames_without_ball = 0
 
                     # add the contour and location to the list
                     ball_locations.append([mot_c, o_center])
 
                     # draw path from previous location to current location
                     if len(ball_locations) > 1:
-                        cv2.line(frame2, ball_locations[-2][1], o_center, (0, 255, 255), 2)
+                        # draw path of the ball
+                        for i in range(len(ball_locations) - 1):
+                            cv2.line(frame2, ball_locations[i][1], ball_locations[i+1][1], (0, 255, 255), 2)
+                        #cv2.line(frame2, ball_locations[-2][1], o_center, (0, 255, 255), 2)
+
+            
+            # if there were no matches, ball is most likely off screen
+            if len(orange_locations) == locations_initial:
+                consecutive_frames_without_ball += 1
+            
+            if consecutive_frames_without_ball > 15:
+                # clear the list of locations to draw new ball path later
+                ball_locations = []
+                consecutive_frames_without_ball = 0
+            
+
 
 
         # update the points queue

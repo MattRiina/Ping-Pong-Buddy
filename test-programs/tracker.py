@@ -5,6 +5,12 @@ import imutils
 import sys
 import time
 
+
+
+# TODO: use new videos collected to come up with different thresholds for everything
+
+
+
 if __name__ == "__main__":
     file = None
     feed = None
@@ -73,7 +79,7 @@ if __name__ == "__main__":
             M = cv2.moments(c)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-            if radius > 10 and radius < 35:
+            if radius > 15 and radius < 35:
                 orange_locations[(int(x), int(y))] = [radius, center]
 
         for mot_c in contours:
@@ -119,8 +125,6 @@ if __name__ == "__main__":
                 # clear the list of locations to draw new ball path later
                 ball_locations = []
                 consecutive_frames_without_ball = 0
-            
-
 
 
         # update the points queue

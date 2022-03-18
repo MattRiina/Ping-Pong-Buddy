@@ -72,7 +72,7 @@ if __name__ == "__main__":
             M = cv2.moments(c)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-            if radius > 10:
+            if radius > 10 and radius < 100:
                 orange_locations[(int(x), int(y))] = [radius, center]
 
         for mot_c in contours:
@@ -85,29 +85,22 @@ if __name__ == "__main__":
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
             # check to see if this center is near any of the orange locations
-            for (x, y), (radius, o_center) in orange_locations.items:
-                pass
+            for (x, y), (radius, o_center) in orange_locations.items():
+                # calculate the distance between the center of the contour and the orange location
+                dist = np.sqrt((center[0] - x) ** 2 + (center[1] - y) ** 2)
+
+                # if the distance is less than the radius of the orange
+                if dist <= radius:
+                    # draw a circle around the orange
+                    cv2.circle(frame2, o_center, int(radius), (0, 255, 255), 2)
+
+                    # add the contour and location to the list
+                    ball_locations.append([mot_c, o_center])
 
             # draw the contour and center of the shape on the image
-            cv2.drawContours(frame1, [mot_c], -1, (0, 255, 0), 2)
-            cv2.circle(frame1, center, 7, (255, 255, 255), -1)
+            # cv2.drawContours(frame1, [mot_c], -1, (0, 255, 0), 2)
+            # cv2.circle(frame1, center, 7, (255, 255, 255), -1)
 
-        # only proceed if at least one contour was found
-        if len(cnts) > 0:
-            # find the largest contour in the mask, then use
-            # it to compute the minimum enclosing circle and
-            # centroid
-            for c in cnts:
-                ((x, y), radius) = cv2.minEnclosingCircle(c)
-                M = cv2.moments(c)
-                center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-
-                # only proceed if the radius meets a minimum size
-                if radius > 10:
-                    # draw the circle and centroid on the frame,
-                    # then update the list of tracked points
-                    cv2.circle(frame1, (int(x), int(y)), int(radius), (0, 255, 255), 2)
-                    cv2.circle(frame1, center, 5, (0, 0, 255), -1)
 
         # update the points queue
         image_list.append(frame1)

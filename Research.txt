@@ -27,3 +27,6 @@ I am currently doing research here: https://learnopencv.com/object-tracking-usin
 
 UPDATE: Motion test videos loaded in and simple motion detection works well
 This tutorial is very helpful: https://pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/
+
+
+3/18 UPDATE: ball tracking works on vidoes shot on iPhone at 30 FPS but struggles on laptop camera. Had to get new testing data

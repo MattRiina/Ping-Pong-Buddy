@@ -72,7 +72,7 @@ if __name__ == "__main__":
             M = cv2.moments(c)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-            if radius > 10 and radius < 100:
+            if radius > 10 and radius < 35:
                 orange_locations[(int(x), int(y))] = [radius, center]
 
         for mot_c in contours:
@@ -90,16 +90,18 @@ if __name__ == "__main__":
                 dist = np.sqrt((center[0] - x) ** 2 + (center[1] - y) ** 2)
 
                 # if the distance is less than the radius of the orange
-                if dist <= radius:
+                if dist <= radius + 10:
                     # draw a circle around the orange
                     cv2.circle(frame2, o_center, int(radius), (0, 255, 255), 2)
+
+                    print("Orange found at: " + str(o_center) + " with radius: " + str(radius))
 
                     # add the contour and location to the list
                     ball_locations.append([mot_c, o_center])
 
-            # draw the contour and center of the shape on the image
-            # cv2.drawContours(frame1, [mot_c], -1, (0, 255, 0), 2)
-            # cv2.circle(frame1, center, 7, (255, 255, 255), -1)
+                    # draw path from previous location to current location
+                    if len(ball_locations) > 1:
+                        cv2.line(frame2, ball_locations[-2][1], o_center, (0, 255, 255), 2)
 
 
         # update the points queue

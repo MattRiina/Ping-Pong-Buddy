@@ -30,3 +30,5 @@ This tutorial is very helpful: https://pyimagesearch.com/2015/09/14/ball-trackin
 
 
 3/18 UPDATE: ball tracking works on vidoes shot on iPhone at 30 FPS but struggles on laptop camera. Had to get new testing data
+
+3/22 UPDATE: Spoke to Professor Turner and he suggested we look into retroreflective tape/paint to track ball easily. Definitely a cool thing to look into and possibly enhance the effectiveness of our detection algorithms

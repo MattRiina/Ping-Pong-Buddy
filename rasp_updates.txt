@@ -1,0 +1,12 @@
+- Received a raspberry pi and made sure it was runnning. However the sd card that was already in it was faulty. 
+  Aditionally when testing the the raspbery pi with the breadboard, one of our group members connected an external battery directly
+  to the raspberry pi and ended up frying it. New rasperry pi is needed...
+
+- Obtained a new sd card for the raspberry pi. 
+
+- Installed Rasperry Pi Imager
+
+- Flashed the rapserry pi with new image in preparation for ontaining new raspberry pi
+
+- Rasperry Pi compatability with motors: https://projects.raspberrypi.org/en/projects/physical-computing/14
+

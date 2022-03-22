@@ -9,6 +9,7 @@ import time
 
 # TODO: use new videos collected to come up with different thresholds for everything
 
+# Rertroreflective tape (paint)
 
 
 if __name__ == "__main__":
@@ -30,7 +31,7 @@ if __name__ == "__main__":
     time.sleep(2.0)
 
     # look for orange ball based on HSV color space
-    lower_orange = np.array([20, 60, 35]) #HSV
+    lower_orange = np.array([15, 45, 35]) #HSV
     upper_orange = np.array([40, 100, 100]) #HSV
 
     # convert to HSV color space from real-world color space
@@ -79,8 +80,9 @@ if __name__ == "__main__":
             M = cv2.moments(c)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-            if radius > 15 and radius < 35:
-                orange_locations[(int(x), int(y))] = [radius, center]
+            # TEMPORARILY REMOVE THIS FOR DEBUGGING
+            # if radius > 10 and radius < 35:
+            orange_locations[(int(x), int(y))] = [radius, center]
 
         for mot_c in contours:
             # only proceed if the contour is large enough
@@ -104,18 +106,18 @@ if __name__ == "__main__":
                     cv2.circle(frame2, o_center, int(radius), (0, 255, 255), 2)
 
                     print("Orange found at: " + str(o_center) + " with radius: " + str(radius))
-                    consecutive_frames_without_ball = 0
+                    if radius > 10 and radius < 35:
+                        consecutive_frames_without_ball = 0
 
-                    # add the contour and location to the list
-                    ball_locations.append([mot_c, o_center])
+                        # add the contour and location to the list
+                        ball_locations.append([mot_c, o_center])
 
-                    # draw path from previous location to current location
-                    if len(ball_locations) > 1:
-                        # draw path of the ball
-                        for i in range(len(ball_locations) - 1):
-                            cv2.line(frame2, ball_locations[i][1], ball_locations[i+1][1], (0, 255, 255), 2)
-                        #cv2.line(frame2, ball_locations[-2][1], o_center, (0, 255, 255), 2)
-
+                        # draw path from previous location to current location
+                        if len(ball_locations) > 1:
+                            # draw path of the ball
+                            for i in range(len(ball_locations) - 1):
+                                cv2.line(frame2, ball_locations[i][1], ball_locations[i+1][1], (0, 255, 255), 2)
+                            #cv2.line(frame2, ball_locations[-2][1], o_center, (0, 255, 255), 2)
             
             # if there were no matches, ball is most likely off screen
             if len(orange_locations) == locations_initial:
@@ -126,6 +128,7 @@ if __name__ == "__main__":
                 ball_locations = []
                 consecutive_frames_without_ball = 0
 
+        print()
 
         # update the points queue
         image_list.append(frame1)

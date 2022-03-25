@@ -5,6 +5,9 @@ import imutils
 import sys
 import time
 
+
+# TODO: try doing color detection off the difference of the frames: ball comes up as orage-ish, and background as black
+
 if __name__ == "__main__":
     file = None
     feed = None
@@ -128,6 +131,17 @@ if __name__ == "__main__":
 
             # show the gray-scale image
             cv2.imshow("Gray", gray)
+            cv2.waitKey(0)
+
+            custom_mask = gray.copy()
+            custom_mask[custom_mask > 20] = 255
+            cv2.imshow("CUSTOM", custom_mask)
+            cv2.waitKey(0)
+
+            # combine custom mask and original image
+            color_and_custom_mask = frame2.copy()
+            color_and_custom_mask[custom_mask < 255] = (0, 0, 0)
+            cv2.imshow("Colored Differences")
             cv2.waitKey(0)
        
 

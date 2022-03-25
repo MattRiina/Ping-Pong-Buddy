@@ -143,6 +143,13 @@ if __name__ == "__main__":
             color_and_custom_mask[custom_mask < 255] = (0, 0, 0)
             cv2.imshow("Colored Differences", color_and_custom_mask)
             cv2.waitKey(0)
+
+            # blur the custom img and then feed it into the orange HSV mask
+            custom_hsv = cv2.GaussianBlur(color_and_custom_mask, (5, 5), 0)
+            motion_then_orange_img = cv2.inRange(custom_hsv, lower_orange, upper_orange)
+
+            cv2.imshow("Motion then orange", motion_then_orange_img)
+            cv2.waitKey(0)
        
 
         # get the next frame

@@ -24,7 +24,7 @@ if __name__ == "__main__":
     time.sleep(2.0)
 
     # look for orange ball based on HSV color space
-    lower_orange = np.array([20, 60, 35]) #HSV
+    lower_orange = np.array([15, 25, 35]) #HSV
     upper_orange = np.array([40, 100, 100]) #HSV
 
     # convert to HSV color space from real-world color space
@@ -105,6 +105,33 @@ if __name__ == "__main__":
         # if the 'q' key is pressed, stop the loop
         if key == ord("q"):
             break
+        elif key == ord("p"):
+            cv2.waitKey(-1) # pause until key is pressed
+        elif key == ord("d"):
+            # start a custom debugging mode: print important variables and show useful images
+            cv2.waitKey(-1) # pause until key is pressed
+
+            # print the location of each orange contour with radius
+            for c in cnts:
+                ((x, y), radius) = cv2.minEnclosingCircle(c)
+                M = cv2.moments(c)
+                center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+                print("x(col): {}, y(row): {}, radius: {}".format(x, y, radius))
+
+            # show color matches for ball
+            cv2.imshow("Color Matches Mask", mask)
+            cv2.waitKey(0)
+
+            # show the difference between the frames
+            cv2.imshow("Difference", diff)
+            cv2.waitKey(0)
+
+            # show the gray-scale image
+            cv2.imshow("Gray", gray)
+            cv2.waitKey(0)
+       
+
+
 
         # get the next frame
         frame1 = frame2

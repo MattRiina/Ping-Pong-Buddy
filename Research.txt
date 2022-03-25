@@ -33,7 +33,7 @@ This tutorial is very helpful: https://pyimagesearch.com/2015/09/14/ball-trackin
 
 3/22 UPDATE: Spoke to Professor Turner and he suggested we look into retroreflective tape/paint to track ball easily. Definitely a cool thing to look into and possibly enhance the effectiveness of our detection algorithms
 
-3/25 UPDATE: Found some very interesting information online when trying to figure out why the mp4 videos feel like they process faster than the mov files. 
+3/25 UPDATE: Found some very interesting information online when trying to figure out why the mp4 videos feel like they process faster than the mov files. It appears that it may do with how compressed each video type is, and how long it takes to decode frames. 
 I found a very good tutorial online that talks about how to speed up video processing speeds in OpenCV, which will be very interesting to look into later: https://pyimagesearch.com/2017/02/06/faster-video-file-fps-with-cv2-videocapture-and-opencv/
 They also have links to tutorials they have for increasing the FPS from webcam feeds and for increasing the FPS on a Raspberry Pi, which are both of interest to me. Including both links here for later:
 https://pyimagesearch.com/2015/12/21/increasing-webcam-fps-with-python-and-opencv/

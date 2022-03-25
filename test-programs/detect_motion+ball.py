@@ -141,11 +141,9 @@ if __name__ == "__main__":
             # combine custom mask and original image
             color_and_custom_mask = frame2.copy()
             color_and_custom_mask[custom_mask < 255] = (0, 0, 0)
-            cv2.imshow("Colored Differences")
+            cv2.imshow("Colored Differences", color_and_custom_mask)
             cv2.waitKey(0)
        
-
-
 
         # get the next frame
         frame1 = frame2

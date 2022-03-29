@@ -41,8 +41,6 @@ if __name__ == "__main__":
     ret, frame1 = feed.read()
     ret, frame2 = feed.read()
 
-    image_list = []
-
     while True:
         # get the difference between the frames
         diff = cv2.absdiff(frame1, frame2)
@@ -98,9 +96,6 @@ if __name__ == "__main__":
                     cv2.circle(frame1, (int(x), int(y)), int(radius), (0, 255, 255), 2)
                     cv2.circle(frame1, center, 5, (0, 0, 255), -1)
 
-        # update the points queue
-        image_list.append(frame1)
-
         # show the frame to our screen
         cv2.imshow("Frame", frame1)
         key = cv2.waitKey(1) & 0xFF
@@ -125,31 +120,17 @@ if __name__ == "__main__":
             cv2.imshow("Color Matches Mask", mask)
             cv2.waitKey(0)
 
-            # show the difference between the frames
-            cv2.imshow("Difference", diff)
+            # show the motion difference between the frames
+            cv2.imshow("Motion", diff)
             cv2.waitKey(0)
 
-            # show the gray-scale image
-            cv2.imshow("Gray", gray)
+            # convert the mask from grayscale to RGB
+            mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
+
+            # show the intersection of the mask and the motion difference
+            cv2.imshow("Mask and Motion", cv2.bitwise_and(mask, diff))
             cv2.waitKey(0)
 
-            custom_mask = gray.copy()
-            custom_mask[custom_mask > 20] = 255
-            cv2.imshow("CUSTOM", custom_mask)
-            cv2.waitKey(0)
-
-            # combine custom mask and original image
-            color_and_custom_mask = frame2.copy()
-            color_and_custom_mask[custom_mask < 255] = (0, 0, 0)
-            cv2.imshow("Colored Differences", color_and_custom_mask)
-            cv2.waitKey(0)
-
-            # blur the custom img and then feed it into the orange HSV mask
-            custom_hsv = cv2.GaussianBlur(color_and_custom_mask, (5, 5), 0)
-            motion_then_orange_img = cv2.inRange(custom_hsv, lower_orange, upper_orange)
-
-            cv2.imshow("Motion then orange", motion_then_orange_img)
-            cv2.waitKey(0)
        
 
         # get the next frame

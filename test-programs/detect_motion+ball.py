@@ -127,9 +127,39 @@ if __name__ == "__main__":
             # convert the mask from grayscale to RGB
             mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
 
+
+            
             # show the intersection of the mask and the motion difference
-            cv2.imshow("Mask and Motion", cv2.bitwise_and(mask, diff))
+            color_mask_motion = cv2.bitwise_and(mask, diff)
+            cv2.imshow("Mask and Motion", color_mask_motion)
             cv2.waitKey(0)
+
+            # detect all the contours in the mask, then initialize the current
+            # (x, y) center of the ball
+            cnts = cv2.findContours(color_mask_motion.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            cnts = imutils.grab_contours(cnts)
+            center = None
+
+            # only proceed if at least one contour was found
+            if len(cnts) > 0:
+                # find the largest contour in the mask, then use
+                # it to compute the minimum enclosing circle and
+                # centroid
+                for c in cnts:
+                    #c = max(cnts, key=cv2.contourArea)
+                    ((x, y), radius) = cv2.minEnclosingCircle(c)
+                    M = cv2.moments(c)
+                    center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+
+                    # only proceed if the radius meets a minimum size
+                    if radius > 10:
+                        # draw the circle and centroid on the frame,
+                        # then update the list of tracked points
+                        cv2.circle(color_mask_motion, (int(x), int(y)), int(radius), (0, 255, 255), 2)
+                        cv2.circle(color_mask_motion, center, 5, (0, 0, 255), -1)
+                
+            # show the frame to our screen
+            cv2.imshow("Frame x", color_mask_motion)
 
        
 

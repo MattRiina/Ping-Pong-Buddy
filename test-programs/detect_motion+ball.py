@@ -116,6 +116,14 @@ if __name__ == "__main__":
                 center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
                 print("x(col): {}, y(row): {}, radius: {}".format(x, y, radius))
 
+            blur_current = cv2.GaussianBlur(frame2, (5, 5), 0)
+            hsv = cv2.cvtColor(blur_current, cv2.COLOR_BGR2HSV)
+
+            # find the orange ball
+            mask = cv2.inRange(hsv, lower_orange, upper_orange)
+            mask = cv2.erode(mask, None, iterations=2)
+            mask = cv2.dilate(mask, None, iterations=2)
+
             # show color matches for ball
             cv2.imshow("Color Matches Mask", mask)
             cv2.waitKey(0)
@@ -127,12 +135,22 @@ if __name__ == "__main__":
             # convert the mask from grayscale to RGB
             mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
 
+            blur_current = cv2.GaussianBlur(frame2, (5, 5), 0)
+            hsv = cv2.cvtColor(blur_current, cv2.COLOR_BGR2HSV)
+
+            # find the orange ball
+            mask = cv2.inRange(hsv, lower_orange, upper_orange)
+            mask = cv2.erode(mask, None, iterations=2)
+            mask = cv2.dilate(mask, None, iterations=2)
 
             
             # show the intersection of the mask and the motion difference
             color_mask_motion = cv2.bitwise_and(mask, diff)
             cv2.imshow("Mask and Motion", color_mask_motion)
             cv2.waitKey(0)
+
+            # convert color_mask_motion to CV_8UC1
+            color_mask_motion = cv2.cvtColor(color_mask_motion, cv2.COLOR_RGB2GRAY)
 
             # detect all the contours in the mask, then initialize the current
             # (x, y) center of the ball

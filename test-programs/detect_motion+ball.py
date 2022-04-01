@@ -132,9 +132,6 @@ if __name__ == "__main__":
             cv2.imshow("Motion", diff)
             cv2.waitKey(0)
 
-            # convert the mask from grayscale to RGB
-            mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
-
             blur_current = cv2.GaussianBlur(frame2, (5, 5), 0)
             hsv = cv2.cvtColor(blur_current, cv2.COLOR_BGR2HSV)
 
@@ -143,9 +140,22 @@ if __name__ == "__main__":
             mask = cv2.erode(mask, None, iterations=2)
             mask = cv2.dilate(mask, None, iterations=2)
 
+            print(mask.shape)
+            print(diff.shape)
+            print(mask[0,0])
+            print(np.unique(mask))
+
+            colored_mask = frame2.copy()
+            colored_mask[mask > 0] = frame2[mask > 0][:]
+
+            cv2.imshow("Colored Mask Test", colored_mask)
+            cv2.waitKey(0)
+
+            mask_gray = cv2.cvtColor(mask, cv2.COLOR_HSV2BGR)
+            mask_gray = cv2.cvtColor(mask_gray, cv2.COLOR_BGR2GRAY)
             
             # show the intersection of the mask and the motion difference
-            color_mask_motion = cv2.bitwise_and(mask, diff)
+            color_mask_motion = cv2.bitwise_and(mask_gray, diff)
             cv2.imshow("Mask and Motion", color_mask_motion)
             cv2.waitKey(0)
 

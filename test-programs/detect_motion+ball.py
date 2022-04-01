@@ -146,7 +146,7 @@ if __name__ == "__main__":
             print(np.unique(mask))
 
             colored_mask = frame2.copy()
-            colored_mask[mask > 0] = frame2[mask > 0][:]
+            colored_mask[mask == 0] = [0,0,0]
 
             cv2.imshow("Colored Mask Test", colored_mask)
             cv2.waitKey(0)

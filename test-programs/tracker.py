@@ -31,7 +31,7 @@ if __name__ == "__main__":
     time.sleep(2.0)
 
     # look for orange ball based on HSV color space
-    lower_orange = np.array([15, 45, 35]) #HSV
+    lower_orange = np.array([15, 25, 35]) #HSV
     upper_orange = np.array([40, 100, 100]) #HSV
 
     # convert to HSV color space from real-world color space
@@ -56,7 +56,7 @@ if __name__ == "__main__":
         blur = cv2.GaussianBlur(gray, (5, 5), 0)
         _, thresh = cv2.threshold(blur, 20, 255, cv2.THRESH_BINARY)
         dilated = cv2.dilate(thresh, None, iterations=3)
-        contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        # contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         blur_current = cv2.GaussianBlur(frame2, (5, 5), 0)
         hsv = cv2.cvtColor(blur_current, cv2.COLOR_BGR2HSV)
@@ -65,6 +65,13 @@ if __name__ == "__main__":
         mask = cv2.inRange(hsv, lower_orange, upper_orange)
         mask = cv2.erode(mask, None, iterations=2)
         mask = cv2.dilate(mask, None, iterations=2)
+
+        colored_mask = frame2.copy()
+        colored_mask[np.where(mask == 0)] = [0,0,0]
+
+        tmp = dilated[np.where(colored_mask != [0,0,0])[0:2]]
+
+        contours, _ = cv2.findContours(tmp, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         # find contours in the mask and initialize the current
         # (x, y) center of the ball
@@ -81,8 +88,8 @@ if __name__ == "__main__":
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
             # TEMPORARILY REMOVE THIS FOR DEBUGGING
-            # if radius > 10 and radius < 35:
-            orange_locations[(int(x), int(y))] = [radius, center]
+            if radius > 10 and radius < 55:
+                orange_locations[(int(x), int(y))] = [radius, center]
 
         for mot_c in contours:
             # only proceed if the contour is large enough
@@ -123,7 +130,7 @@ if __name__ == "__main__":
             if len(orange_locations) == locations_initial:
                 consecutive_frames_without_ball += 1
             
-            if consecutive_frames_without_ball > 15:
+            if consecutive_frames_without_ball > 30:
                 # clear the list of locations to draw new ball path later
                 ball_locations = []
                 consecutive_frames_without_ball = 0

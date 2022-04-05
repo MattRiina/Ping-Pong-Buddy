@@ -6,5 +6,10 @@ WORKING LIST OF PING PONG BUDDY PARTS LIST:
 3. (4) DC MOTORS
 4. (1) RASPBERRY PI
 5. (1) ARDUINO
-6. (2) CAMERA - FOR C.V. *NEED TO CONSULT P.M.
-7. 
+6. (1) CAMERA - FOR C.V. *NEED TO CONSULT P.M.
+7. 2" Inner Diameter PVC Pipe
+8. Net to catch balls
+9. Wheels to attach to motors
+10. Screws and brackets to secure motor to PVC
+11. Brackets to secure ping pong buddy to ping pong table
+12. 14.8 V battery pack for motors

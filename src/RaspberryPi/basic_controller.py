@@ -16,8 +16,22 @@ RPI.GPIO.output(in1,RPI.GPIO.LOW)
 RPI.GPIO.output(in2,RPI.GPIO.LOW)
 power=RPI.GPIO.PWM(enA,1000) #PWM frequency of 1000Hz, later power.changeDutyCycle(x) can be used to change the speed
 
+power.start(50) #start the motor at 50% power
 
 #Main loop
 while(1):
-    print("placeholder")
-
+    command = input() #read user input
+    if command == "r": #run
+        RPI.GPIO.output(in1,RPI.GPIO.LOW)
+        RPI.GPIO.output(in2,RPI.GPIO.HIGH)
+        command = "."
+    elif command == "q": #stop
+        RPI.GPIO.output(in1,RPI.GPIO.LOW)
+        RPI.GPIO.output(in2,RPI.GPIO.LOW)
+        command = "."
+    elif command == "x": #exit
+        RPI.GPIO.cleanup()
+        print("Exiting...Cleaining up GPIO")
+        break
+    else:
+        print("Invalid command")

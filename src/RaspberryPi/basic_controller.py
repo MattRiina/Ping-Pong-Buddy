@@ -45,5 +45,13 @@ while(1):
         print("Changing to low power")
         power.ChangeDutyCycle(25)
         command = "."
+    elif command.isdigit(): #if the user input is a number, change the speed\
+        speed = int(command)
+        print("Changing speed to " + command)
+        if(speed > 100 or speed < 0):
+            print("Speed must be between 0 and 100")
+            continue
+        power.ChangeDutyCycle(int(command))
+        command = "."
     else:
         print("Invalid command")

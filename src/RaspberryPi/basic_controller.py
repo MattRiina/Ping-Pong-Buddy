@@ -33,5 +33,17 @@ while(1):
         RPI.GPIO.cleanup()
         print("Exiting...Cleaining up GPIO")
         break
+    elif command == "h": #highpower
+        print("Changing to high power")
+        power.ChangeDutyCycle(80)
+        command = "."
+    elif command == "m": #medium power
+        print("Changing to medium power")
+        power.ChangeDutyCycle(50)
+        command = "."
+    elif command == "l": #lowpower
+        print("Changing to low power")
+        power.ChangeDutyCycle(25)
+        command = "."
     else:
         print("Invalid command")

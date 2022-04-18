@@ -6,8 +6,6 @@ import sys
 import time
 
 
-# TODO: try doing color detection off the difference of the frames: ball comes up as orage-ish, and background as black
-
 if __name__ == "__main__":
     file = None
     feed = None
@@ -27,7 +25,7 @@ if __name__ == "__main__":
     time.sleep(2.0)
 
     # look for orange ball based on HSV color space
-    lower_orange = np.array([15, 25, 35]) #HSV
+    lower_orange = np.array([20, 60, 35]) #HSV
     upper_orange = np.array([40, 100, 100]) #HSV
 
     # convert to HSV color space from real-world color space
@@ -40,6 +38,8 @@ if __name__ == "__main__":
 
     ret, frame1 = feed.read()
     ret, frame2 = feed.read()
+
+    image_list = []
 
     while True:
         # get the difference between the frames
@@ -96,6 +96,8 @@ if __name__ == "__main__":
                     cv2.circle(frame1, (int(x), int(y)), int(radius), (0, 255, 255), 2)
                     cv2.circle(frame1, center, 5, (0, 0, 255), -1)
 
+        image_list.append(frame1)
+
         # show the frame to our screen
         cv2.imshow("Frame", frame1)
         key = cv2.waitKey(1) & 0xFF
@@ -139,7 +141,6 @@ if __name__ == "__main__":
             mask = cv2.inRange(hsv, lower_orange, upper_orange)
             mask = cv2.erode(mask, None, iterations=2)
             mask = cv2.dilate(mask, None, iterations=2)
-
 
             colored_mask = frame2.copy()
             colored_mask[np.where(mask == 0)] = [0,0,0]
@@ -198,9 +199,18 @@ if __name__ == "__main__":
         # Press q to quit
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
+    
+    fps = int(feed.get(5))
+    
     # When everything done, release the capture
     feed.release()
+
+    # use the image_list to save a video with VideoWriter
+    output = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc('m', 'p', '4', 'v'), fps, image_list[0].shape[:2][::-1])
+
+    for image in image_list:
+        output.write(image)
+    output.release()
 
     # Close all windows
     cv2.destroyAllWindows()

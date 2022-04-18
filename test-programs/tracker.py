@@ -153,7 +153,7 @@ if __name__ == "__main__":
     feed.release()
 
     # use the image_list to save a video with VideoWriter
-    output = cv2.VideoWriter('server-angle-test.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), fps, image_list[0].shape[:2][::-1])
+    output = cv2.VideoWriter('server-angle-test.mp4', cv2.VideoWriter_fourcc('m', 'p', '4', 'v'), fps, image_list[0].shape[:2][::-1])
 
     for image in image_list:
         output.write(image)

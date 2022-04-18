@@ -4,7 +4,6 @@ import numpy as np
 import imutils
 import sys
 import time
-import imageio
 
 if __name__ == "__main__":
     file = None
@@ -51,8 +50,8 @@ if __name__ == "__main__":
         # show the frame
         cv2.imshow("feed", frame1)
 
-        frame1_rgb = cv2.cvtColor(frame1, cv2.COLOR_BGR2RGB)
-        image_list.append(frame1_rgb)
+        #frame1_rgb = cv2.cvtColor(frame1, cv2.COLOR_BGR2RGB)
+        image_list.append(frame1)
 
         # get the next frame
         frame1 = frame2
@@ -66,13 +65,19 @@ if __name__ == "__main__":
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
+    fps = int(feed.get(5))
+    
     # When everything done, release the capture
     feed.release()
+
+    # use the image_list to save a video with VideoWriter
+    output = cv2.VideoWriter('motion-long-rally.mp4', cv2.VideoWriter_fourcc('m', 'p', '4', 'v'), fps, image_list[0].shape[:2][::-1])
+
+    for image in image_list:
+        output.write(image)
+    output.release()
 
     # Close all windows
     cv2.destroyAllWindows()
 
-    if file_name is not None:
-        # Convert to gif using the imageio.mimsave method
-        imageio.mimsave("./demos/detect_motion/" + file_name + "_detect_motion.gif", image_list)
     

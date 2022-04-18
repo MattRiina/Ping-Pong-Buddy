@@ -13,7 +13,7 @@ if __name__ == "__main__":
     image = cv2.imread(file)
 
     # look for orange ball based on HSV color space
-    lower_orange = np.array([15, 45, 35]) #HSV
+    lower_orange = np.array([20, 60, 35]) #HSV
     upper_orange = np.array([40, 100, 100]) #HSV
 
     # convert to HSV color space from real-world color space
@@ -61,3 +61,5 @@ if __name__ == "__main__":
     # show  the image
     cv2.imshow("Image", image)
     cv2.waitKey(0)
+
+    cv2.imwrite("output.jpg", image)

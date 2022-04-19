@@ -10,3 +10,18 @@
 
 - Rasperry Pi compatability with motors: https://projects.raspberrypi.org/en/projects/physical-computing/14
 
+- Raspberry Pi itself cannot power motors, therefore motor controllers are necessary
+
+- Ordered Motor controller L298N on amazon, waiting for it to come in mail. Decided it was the appropriate one after extensive research
+
+- While waiting for motor controller, tried powering 5V DC motor directly from 12V Battery pack and the motor started burning... Decided it was best to wait
+
+- Received motor controller and figured out wiring schematics to connect it to the motor and the raspberry pi
+
+- Sucessfully connected all components and ran motor from Raspbian terminal
+
+- Fleshed out code controlling the motor, variable input and correct spin direction
+
+- Fiddled with different voltage outputs to see best ping pong bounce
+
+- Decided best output was around 50-70 percent of maximum 

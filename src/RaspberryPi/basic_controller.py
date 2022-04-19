@@ -22,10 +22,12 @@ power.start(50) #start the motor at 50% power
 while(1):
     command = input() #read user input
     if command == "r": #run
+        print("Running at default speed of 50 percent and direction")
         RPi.GPIO.output(in1,RPi.GPIO.LOW)
         RPi.GPIO.output(in2,RPi.GPIO.HIGH)
         command = "."
     elif command == "q": #stop
+        print("Stopping motor")
         RPi.GPIO.output(in1,RPi.GPIO.LOW)
         RPi.GPIO.output(in2,RPi.GPIO.LOW)
         command = "."
